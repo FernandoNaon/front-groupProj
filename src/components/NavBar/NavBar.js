@@ -8,9 +8,9 @@ import {
   filterPerGenre,
   filterPerProvince,
   filterPerTheater,
-  orderScore,
+  // orderScore,
   filterPerRated,
-  //filterPerTicketsQty,
+  filterPerTicketsQty,
 } from "../../redux/actions";
 import style from "./NavBar.module.css";
 import Accordion from "react-bootstrap/Accordion";
@@ -28,12 +28,12 @@ export default function NavBar({ setActualPage, setOrder }) {
     dispatch(allTheaters());
   }, [dispatch]);
 
-  function handleOrderScore(e) {
-    // e.preventDefault()
-    dispatch(orderScore(e.target.value));
-    setActualPage(1);
-    setOrder(`Order by ${e.target.value}`);
-  }
+  // function handleOrderScore(e) {
+  //   // e.preventDefault()
+  //   dispatch(orderScore(e.target.value));
+  //   setActualPage(1);
+  //   setOrder(`Order by ${e.target.value}`);
+  // }
 
   function handleFilterProvince(prov) {
     prov.preventDefault();
@@ -53,10 +53,10 @@ export default function NavBar({ setActualPage, setOrder }) {
     e.preventDefault();
     dispatch(filterPerRated(e.target.value));
   }
-  //function handleFilterTicketsQty(e) {
-  //  e.preventDefault();
-  //  dispatch(filterPerTicketsQty(e.target.value));
-  //}
+  function handleFilterTicketsQty(e) {
+    e.preventDefault();
+    dispatch(filterPerTicketsQty(e.target.value));
+  }
 
   return (
     <div className={style.navContainer}>
@@ -72,7 +72,7 @@ export default function NavBar({ setActualPage, setOrder }) {
             <Accordion.Body>
               <div className={style.right}>
                 {/* // ------------- filtro por score----------- */}
-                <div className={style.puntuacion}>
+                {/* <div className={style.puntuacion}>
                   <select onChange={(e) => handleOrderScore(e)}>
                     <option defaultValue="">Puntuación</option>
                     <option name="orderScore" value="higherScore">
@@ -82,16 +82,14 @@ export default function NavBar({ setActualPage, setOrder }) {
                       Menores primero
                     </option>
                   </select>
-                </div>
+                </div> */}
                 {/* // ------------- filtro por ubicacion---------- */}
                 <div>
                   <select
                     onChange={(prov) => handleFilterProvince(prov)}
                     name="province"
                   >
-                    <option defaultValue="" disabled>
-                      Ubicación
-                    </option>
+                    <option defaultValue="">Ubicación</option>
                     <option value="all">Todas</option>
                     <option value="Buenos Aires">Buenos Aires</option>
                     <option value="Cordoba">Cordoba</option>
@@ -136,39 +134,35 @@ export default function NavBar({ setActualPage, setOrder }) {
                 {/* // ------------- filtro por Genero---------- */}
                 <div>
                   <select onChange={(e) => handleFilterGenre(e)} name="genre">
-                    <optgroup label="OBRAS MAYORES">
-                      <option defaultValue="" disabled>
-                        Género
-                      </option>
-                      <option>Comedia</option>
-                      <option>Drama</option>
-                      <option>Tragedia</option>
-                      <option>Tragicomedia</option>
-                      <option>Monólogo</option>
-                    </optgroup>
-                    <optgroup label="OBRAS MENORES">
+                    {/* <optgroup label="OBRAS MAYORES"> */}
+                    <option defaultValue="">Género</option>
+                    <option>Comedia</option>
+                    <option>Drama</option>
+                    <option>Tragedia</option>
+                    <option>Tragicomedia</option>
+                    <option>Monologo</option>
+                    {/* </optgroup> */}
+                    {/* <optgroup label="OBRAS MENORES">
                       <option>Auto Sacramental</option>
                       <option>Entremes</option>
                       <option>Sainete</option>
                       <option>Farsa</option>
                       <option>Vodevil</option>
-                    </optgroup>
-                    <optgroup label="OBRAS MUSICALES">
-                      <option>Ópera</option>
-                      <option>Zarzuela</option>
-                      <option>Opereta</option>
-                      <option>Musical</option>
-                      <option>Ballet</option>
-                      <option>Danza</option>
-                    </optgroup>
+                    </optgroup> */}
+                    {/* <optgroup label="OBRAS MUSICALES"> */}
+                    <option>Ópera</option>
+                    {/* <option>Zarzuela</option>
+                      <option>Opereta</option> */}
+                    <option>Musical</option>
+                    {/* <option>Ballet</option> */}
+                    <option>Danza</option>
+                    {/* </optgroup> */}
                   </select>
                 </div>
                 {/* // ------------- filtro por Clasificacion---------- */}
                 <div>
                   <select onChange={(e) => handleFilterRated(e)} name="rated">
-                    <option defaultValue="" disabled>
-                      Clasificación
-                    </option>
+                    <option defaultValue="">Clasificación</option>
                     <option value="Todas las edades">Todas las edades</option>
                     <option value="Apta para mayores de 13 años">
                       Apta para mayores de 13 años
@@ -185,21 +179,21 @@ export default function NavBar({ setActualPage, setOrder }) {
                   </select>
                 </div>
                 {/* // ------------- filtro por Cantidad de entradas---------- */}
-                <div>
+                <div className={style.puntuacion}>
                   {/* <p id="ticketNumber">Cantidad de entradas</p> */}
-                  {/* <input
+                  <input
                     type="number"
-                    placeholder="Entradas"
+                    placeholder="Entradas requeridas"
                     min="1"
-                    max="50"
+                    max="20"
                     onChange={(e) => handleFilterTicketsQty(e)}
-                  /> */}
+                  />
 
                   {/* <div>
-      <p id="ticketNumber">Cantidad de entradas</p>
+      <p id="ticketNumber">Entradas requeridas</p>
     </div>
     <span> 
-            <input id="ticketsNumbers" type="range" min="1" max="20" name="tickets" value="1" onChange={(e) => handleFilterTicketsQty(e)}/>
+            <input id="ticketsNumbers" type="range" min="1" max="10" name="tickets" onChange={(e) => handleFilterTicketsQty(e)}/>
         </span> */}
                 </div>
               </div>
