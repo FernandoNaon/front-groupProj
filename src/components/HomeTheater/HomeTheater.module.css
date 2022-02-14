@@ -1,0 +1,23 @@
+.homeContainer {
+  width: 100%;
+  height: 100%;
+}
+
+.showsContainer {
+  margin-top: 2rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin: auto;
+}
+
+.searchContainer {
+  display: flex;
+  justify-content: center;
+}
+
+.footerContainer {
+  position: absolute;
+  bottom: 0;
+}

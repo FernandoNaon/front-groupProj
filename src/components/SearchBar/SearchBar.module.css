@@ -1,0 +1,14 @@
+.all {
+  display: flex;
+  justify-content: center;
+}
+
+.searchContainer {
+  width: 50rem;
+}
+
+@media (max-width: 768px) {
+  .searchContainer {
+    width: 100%;
+  }
+}

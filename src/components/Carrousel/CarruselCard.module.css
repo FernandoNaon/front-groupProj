@@ -1,0 +1,19 @@
+.carouselInner {
+  height: 100%;
+  width: 100%;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  display: flex;
+}
+
+@media (max-width: 768px) {
+  .carouselInner {
+    height: 50%;
+    width: 50%;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    display: flex;
+  }
+}
