@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import GoogleLogin from "react-google-login";
 import { Link } from "react-router-dom";
-import { useLocation } from 'react-router-dom';
+import { useLocation } from "react-router-dom";
 import useUser from "../../hooks/useUser.js";
 import { allTheaters } from "../../redux/actions/index.js";
 import { useSelector, useDispatch } from "react-redux";
@@ -48,7 +48,7 @@ const LogInTheatres = () => {
     e.preventDefault();
     login(input);
     //navigate('/viewerHome/1')
-    window.location.href = `https://front-a-sala-llena-five.vercel.app/theaterHome/${filterTheater.id}/`;
+    window.location.href = `https://front-group-proj.vercel.app/theaterHome/${filterTheater.id}/`;
     setInput({ email: "", password: "" });
   }
 

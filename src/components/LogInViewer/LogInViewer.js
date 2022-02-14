@@ -8,7 +8,6 @@ import Footer from "../Footer/Footer.js";
 import logo from "../../assets/logo a sala llena-sinfondo.png";
 import style from "./LoginViewer.module.css";
 
-
 function validate(input) {
   let errors = {};
   if (input.email === "") {
@@ -62,7 +61,7 @@ const LogInViewer = () => {
     e.preventDefault();
     loginviewer(input);
     //navigate('/viewerHome/1')
-    window.location.href = `https://front-a-sala-llena-five.vercel.app/viewerHome/${filterViewer.id}/`;
+    window.location.href = `https://front-group-proj.vercel.app/viewerHome/${filterViewer.id}/`;
     setInput({ email: "", password: "" });
   }
 
@@ -74,8 +73,8 @@ const LogInViewer = () => {
         </Link>
       </div>
       <div>
-        <Link to='/'>
-        <button>Volver</button>
+        <Link to="/">
+          <button>Volver</button>
         </Link>
       </div>
       <div className={style.formContainer}>

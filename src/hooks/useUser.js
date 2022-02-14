@@ -7,7 +7,6 @@ const useUser = () => {
   const { rol, key, id, setRol, setKey, setId, roles, setRoles } =
     useContext(Context);
   const [state, setState] = useState({ loading: false, error: false });
-  
 
   const login = useCallback(
     (input) => {
@@ -15,14 +14,13 @@ const useUser = () => {
       loginTheater(input)
         .then((data) => {
           window.sessionStorage.setItem("key", data);
-          
+
           setState({ loading: false, error: false });
           setKey(data);
-          
         })
         .catch((err) => {
           window.sessionStorage.removeItem("key");
-          
+
           setState({ loading: false, error: true });
           console.error(err);
         });
@@ -36,14 +34,13 @@ const useUser = () => {
       loginViewer(input)
         .then((data) => {
           window.sessionStorage.setItem("key", data);
-          
+
           setState({ loading: false, error: false });
           setKey(data);
-          
         })
         .catch((err) => {
           window.sessionStorage.removeItem("key");
-          
+
           setState({ loading: false, error: true });
           console.error(err);
         });
@@ -54,10 +51,10 @@ const useUser = () => {
   const logout = useCallback(() => {
     window.sessionStorage.removeItem("key");
     setKey(null);
-    
+
     //setRol(null)
-    window.location.href="https://front-a-sala-llena-five.vercel.app/"
-  }, [setKey])
+    window.location.href = "https://front-group-proj.vercel.app/";
+  }, [setKey]);
 
   return {
     isLogged: Boolean(key),
