@@ -17,9 +17,7 @@ const SalesHistory = () => {
   const { id } = useParams();
 
   useEffect(() => {
-    dispatch(theaterDetail(id));
-    dispatch(allShows());
-    dispatch(getAllTickets());
+    dispatch(theaterDetail(id), allShows(), getAllTickets());
   }, [dispatch, id]);
 
   let filterShows = show?.filter((e) => e.theaterId === theater.id);
