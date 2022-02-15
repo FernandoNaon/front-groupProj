@@ -17,13 +17,13 @@ const SalesHistory = () => {
   const { id } = useParams();
 
   useEffect(() => {
-    dispatch(allShows());
     dispatch(theaterDetail(id));
+    dispatch(allShows());
     dispatch(getAllTickets());
   }, [dispatch, id]);
 
-  let filterShows = show?.filter((e) => e.theaterId === theater?.id);
-  let filterTicket = tickets?.filter((e) => e.show.theaterId === theater?.id);
+  let filterShows = show?.map((e) => e.theaterId === theater?.id);
+  let filterTicket = tickets?.map((e) => e.show.theaterId === theater?.id);
   console.log("filter", filterShows);
   console.log("ticket", filterTicket);
   let total = filterTicket.map((e) => e.price);
