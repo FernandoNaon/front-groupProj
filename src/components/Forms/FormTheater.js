@@ -1,4 +1,4 @@
-import React, { Fragment } from "react";
+import React, { Fragment, useRef } from "react";
 import { createTheater } from "../../redux/actions";
 import { useForm } from "react-hook-form";
 import Footer from "../Footer/Footer";
@@ -9,7 +9,10 @@ const FormTheater = () => {
     register,
     handleSubmit,
     formState: { errors },
+    watch,
   } = useForm();
+  const password = useRef({});
+  password.current = watch("password", "");
   let history = useHistory();
   const onSubmit = (data) => {
     let inputs = {
@@ -106,16 +109,36 @@ const FormTheater = () => {
                 value: 8,
                 message: "Minimo 8 caracteres",
               },
-              pattern: {
-                value: /(?=(.*[0-9]))(?=.*[a-z])(?=(.*[A-Z]))(?=(.*)).{8,}/,
-                message:
-                  "Debe tener una letra minúscula, una letra mayúscula, un número, mínimo 8 dígitos.",
-              },
+              // pattern: {
+              //   value: /(?=(.*[0-9]))(?=.*[a-z])(?=(.*[A-Z]))(?=(.*)).{8,}/,
+              //   message:
+              //     "Debe tener una letra minúscula, una letra mayúscula, un número, mínimo 8 dígitos.",
+              // },
             })}
           />
           {
             <span className="text-danger text-small d-block mb-2">
               {errors.password && errors.password.message}
+            </span>
+          }
+          <label>Repite tu contraseña:</label>
+          <input
+            type="password"
+            name="newpassword"
+            placeholder="Repita la contraseña"
+            className="form-control my-2"
+            {...register("newpassword", {
+              required: {
+                value: true,
+                message: "El campo es requerido",
+              },
+              validate: (value) =>
+                value === password.current || "La contraseña debe coincidir",
+            })}
+          />
+          {
+            <span className="text-danger text-small d-block mb-2">
+              {errors.newpassword && errors.newpassword.message}
             </span>
           }
 

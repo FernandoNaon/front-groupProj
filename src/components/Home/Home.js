@@ -10,7 +10,9 @@ import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
 import style from "./Home.module.css";
 // import Footer from "../Footer/Footer";
 
-// import CarouselContainer from "../Carrousel/Carrousel.js";
+import CarouselContainer from "../Carrousel/Carrousel.js";
+import CarrouselReview from "../Carrousel/CarrouselReview.js";
+
 export default function Home() {
   const dispatch = useDispatch();
   const history = useHistory();
@@ -21,6 +23,7 @@ export default function Home() {
   const iLastShow = actualPage * qty; //6
   const iFirstShow = iLastShow - qty;
   const actualShow = allshows.slice(iFirstShow, iLastShow);
+
   console.log(actualShow);
   const paginate = (number) => {
     setActualPage(number);
@@ -37,9 +40,8 @@ export default function Home() {
       <div className={style.searchContainer}>
         <SearchBar />
       </div>
-      {/* <Link to ='/'>
-                </Link> */}
-      {/*<CarouselContainer allshows={allshows}/>*/}
+
+      <CarouselContainer allshows={allshows} />
       <div className={style.showsContainer}>
         {actualShow.length ? (
           <Shows actualShow={actualShow} />
@@ -51,7 +53,7 @@ export default function Home() {
       <div className={style.paginate}>
         <Paginate qty={qty} allshows={allshows.length} paginate={paginate} />
       </div>
-
+      <CarrouselReview />
       {/* <div className={style.footerContainer}>
         <Footer />
       </div> */}

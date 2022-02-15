@@ -1,4 +1,4 @@
-import React, { Fragment } from "react";
+import React, { Fragment, useRef } from "react";
 import { postViewer } from "../../redux/actions/index.js";
 import { useForm } from "react-hook-form";
 import Footer from "../Footer/Footer.js";
@@ -10,8 +10,10 @@ const FormViewers = () => {
     register,
     handleSubmit,
     formState: { errors },
+    watch,
   } = useForm();
-
+  const password = useRef({});
+  password.current = watch("password", "");
   const onSubmit = (data) => {
     const inputs = {
       name: data.name,
@@ -20,9 +22,9 @@ const FormViewers = () => {
       image: data.image,
       province: data.province,
     };
-    postViewer(inputs);
+    // postViewer(inputs);
     alert("Usuario creado con exito");
-    history.push(`/loginviewer`);
+    // history.push(`/loginviewer`);
   };
 
   return (
@@ -95,6 +97,26 @@ const FormViewers = () => {
           {
             <span className="text-danger text-small d-block mb-2">
               {errors.password && errors.password.message}
+            </span>
+          }
+          <label>Repite tu contraseña:</label>
+          <input
+            type="password"
+            name="passwordrepeat"
+            placeholder="Repita la contraseña"
+            className="form-control my-2"
+            {...register("passwordrepeat", {
+              required: {
+                value: true,
+                message: "El campo es requerido",
+              },
+              validate: (value) =>
+                value === password.current || "La contraseña debe coincidir",
+            })}
+          />
+          {
+            <span className="text-danger text-small d-block mb-2">
+              {errors.passwordrepeat && errors.passwordrepeat.message}
             </span>
           }
 

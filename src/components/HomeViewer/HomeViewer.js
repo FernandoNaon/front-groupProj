@@ -8,12 +8,12 @@ import Paginate from "../Paginate/Paginate.js";
 import style from "./HomeViewer.module.css";
 import Footer from "../Footer/Footer.js";
 
-//import CarouselContainer from "../Carrousel/Carrousel.js";
+import CarouselContainer from "../Carrousel/Carrousel.js";
 import { useParams } from "react-router-dom";
 import { getViewerDetail } from "../../redux/actions/index.js";
 const HomeViewer = () => {
   const dispatch = useDispatch();
-  //   const show = useSelector((state) => state.shows);
+  const show = useSelector((state) => state.shows);
   const allshows = useSelector((state) => state.shows);
   const [, setOrder] = useState("");
   const [actualPage, setActualPage] = useState(1);
@@ -31,7 +31,7 @@ const HomeViewer = () => {
     dispatch(allShows());
   }, [dispatch, id]);
 
-  // const shows = allshows?.filter((e) => e.theater.province === detail.province);
+  const shows = allshows?.filter((e) => e.theater.province === detail.province);
   // console.log(shows);
 
   return (
@@ -53,11 +53,11 @@ const HomeViewer = () => {
       {/* <Link to ='/'>
               </Link> */}
 
-      {/*shows.length > 0 ? (
+      {shows.length > 0 ? (
         <CarouselContainer allshows={shows} />
       ) : (
         <CarouselContainer allshows={allshows} />
-      )*/}
+      )}
 
       <div className={style.showsContainer}>
         {actualShow.length ? <Shows actualShow={actualShow} /> : <p>...</p>}

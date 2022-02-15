@@ -16,7 +16,7 @@
 .micuenta {
   width: 100vw;
   display: flex;
-  justify-content: end;
+  justify-content: flex-end;
   align-items: flex-start;
   font-size: 1rem;
 }
@@ -45,7 +45,7 @@
 
   .miCuenta {
     display: flex;
-    justify-content: end;
+    justify-content: flex-end;
     align-items: flex-start;
     font-size: 1rem;
   }
