@@ -39,8 +39,6 @@ const HomeViewer = () => {
       <div className={style.searchContainer}>
         <SearchBar />
       </div>
-      {/* <Link to ='/'>
-              </Link> */}
 
       {shows.length > 0 ? (
         <CarouselContainer allshows={shows} />

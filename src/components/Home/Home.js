@@ -6,7 +6,6 @@ import Paginate from "../Paginate/Paginate";
 import { allShows } from "../../redux/actions";
 import { useDispatch, useSelector } from "react-redux";
 import style from "./Home.module.css";
-
 import CarouselContainer from "../Carrousel/Carrousel.js";
 import CarrouselReview from "../Carrousel/CarrouselReview.js";
 
