@@ -7,7 +7,6 @@ import {
   theaterDetail,
 } from "../../redux/actions/index.js";
 import { useParams } from "react-router-dom";
-import Footer from "../Footer/Footer";
 
 const SalesHistory = () => {
   const dispatch = useDispatch();
@@ -50,7 +49,6 @@ const SalesHistory = () => {
       ) : (
         <h1>TODAVIA NO HAY VENTAS</h1>
       )}
-      <Footer />
     </div>
   );
 };
