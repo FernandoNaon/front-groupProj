@@ -8,11 +8,9 @@ import {
 } from "../../redux/actions/index.js";
 import { useParams } from "react-router-dom";
 import { useForm } from "react-hook-form";
-import Footer from "../Footer/Footer.js";
 import Seat from "../Seats/Seats.js";
 import { useDispatch, useSelector } from "react-redux";
 import style from "./FormShow.module.css";
-
 const FormShow = () => {
   const history = useHistory();
   const dispatch = useDispatch();
@@ -23,22 +21,33 @@ const FormShow = () => {
     handleSubmit,
     formState: { errors },
   } = useForm();
+  const minfecha = new Date(Date());
+  const minfechaaño = minfecha.getFullYear();
+  const minfechames = minfecha.getMonth() + 1;
+  let minfechames1 = minfechames.length !== 1 ? `0${minfechames}` : minfechames;
+  const minfechadia = minfecha.getDate();
+  const maxfechadia = minfecha.getDate() + 2;
+  const fechadehoy = new String(
+    `${minfechaaño}-${minfechames1}-${minfechadia}`
+  );
+  const fechadepasado = new String(
+    `${minfechaaño}-${minfechames1}-${maxfechadia}`
+  );
 
   useEffect(() => {
     dispatch(theaterDetail(id));
   }, [dispatch, id]);
-
   const [input] = useState({
-    theaterId: id,
+    theaterName: theater.name,
   });
   const [seatsavailable, setSeatAvailable] = useState([]);
   const [form] = useState(true);
-
   console.log(seatsavailable, "seats");
   console.log(id);
   const onSubmit = (data) => {
     const inputs = {
       ...input,
+      theaterName: theater.name,
       name: data.name,
       summary: data.summary,
       genre: data.genre,
@@ -52,7 +61,7 @@ const FormShow = () => {
     };
     //let tickets={}
     console.log("input", inputs);
-
+    postShow(inputs);
     for (var i = 0; i < seatsavailable.length; i++) {
       const tickets = {
         price: data.originPrice,
@@ -62,7 +71,7 @@ const FormShow = () => {
       console.log("ticket", tickets);
       postTicket(tickets);
     }
-    postShow(inputs);
+
     postNewsletterShow(theater.name);
     alert("Espectaculo agregado!");
     history.push(`/theaterHome/${id}`);
@@ -247,6 +256,8 @@ const FormShow = () => {
               <input
                 type="date"
                 name="date"
+                min={fechadehoy}
+                max={fechadepasado}
                 className="form-control "
                 {...register("date", {
                   required: {

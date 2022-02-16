@@ -10,7 +10,6 @@ import {
 } from "../../redux/actions/index.js";
 import ShowCard from "../ShowCard/ShowCard";
 import style from "./HomeTheater.module.css";
-import Footer from "../Footer/Footer";
 
 const HomeTheater = () => {
   const dispatch = useDispatch();

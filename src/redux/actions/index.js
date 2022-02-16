@@ -278,18 +278,30 @@ export function getShowByName(name) {
   };
 }
 
-export function editProfileT(payload) {
-  return async function (dispatch) {
-    try {
-      const { data } = await axios.put(
-        `https://back-group-proj.herokuapp.com/theaters/${payload.id}`,
-        payload
-      );
-      alert(data);
-      return dispatch({ type: PUT_PROFILE_THEATER });
-    } catch (err) {
-      console.log(err);
-    }
+// export function editProfileT(payload) {
+//   return async function (dispatch) {
+//     try {
+//       const { data } = await axios.put(
+//         `https://back-group-proj.herokuapp.com/theaters/${payload.id}`,
+//         payload
+//       );
+//       alert(data);
+//       return dispatch({ type: PUT_PROFILE_THEATER });
+//     } catch (err) {
+//       console.log(err);
+//     }
+//   };
+// }
+
+export function editProfileT(id, changes) {
+  return function (dispatch) {
+    return axios
+      .put(`https://back-group-proj.herokuapp.com/theaters/${id}`, changes)
+      .then((response) => response.data)
+      .then((data) => {
+        console.log(data);
+        dispatch({ type: PUT_PROFILE_THEATER, payload: data });
+      });
   };
 }
 
@@ -462,6 +474,42 @@ export function postNewsletterShow(nameTheater) {
   }
 }
 
+export function postPasswordRecoveryViewer(email) {
+  try {
+    const postEmail = axios.post(
+      "https://back-group-proj.herokuapp.com/resetPasswordViewer",
+      {
+        email,
+      }
+    );
+
+    return {
+      type: POST_PASSWORD_RECOVERY_VIEWER,
+      payload: postEmail,
+    };
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+export function postPasswordRecoveryTheater(email) {
+  try {
+    const postEmail = axios.post(
+      "https://back-group-proj.herokuapp.com/resetPasswordTheater",
+      {
+        email,
+      }
+    );
+
+    return {
+      type: POST_PASSWORD_RECOVERY_THEATER,
+      payload: postEmail,
+    };
+  } catch (error) {
+    console.log(error);
+  }
+}
+
 export const ORDER_PRICE = "ORDER_PRICE";
 export const FILTER_PROVINCE = "FILTER_PROVINCE";
 export const POST_SHOW = "POST_SHOW";
@@ -489,3 +537,5 @@ export const PUT_TICKET = "PUT_TICKET";
 export const POST_REVIEW = "POST_REVIEW";
 export const POST_NEWSLETTER_SHOW = "POST_NEWSLETTER_SHOW";
 export const GET_ALL_REVIEW = "GET_ALL_REVIEW";
+export const POST_PASSWORD_RECOVERY_VIEWER = "POST_PASSWORD_RECOVERY_VIEWER";
+export const POST_PASSWORD_RECOVERY_THEATER = "POST_PASSWORD_RECOVERY_THEATER";

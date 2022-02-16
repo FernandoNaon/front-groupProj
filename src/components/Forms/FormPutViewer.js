@@ -8,7 +8,6 @@ import {
 } from "../../redux/actions/index.js";
 import { useParams } from "react-router-dom";
 import NavBarPerfilViewer from "../NavBar/NavBarPerfilViewer.js";
-import Footer from "../Footer/Footer.js";
 import style from "./FormPutViewer.module.css";
 
 const FormPutViewer = () => {

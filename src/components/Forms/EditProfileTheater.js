@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { editProfileT, theaterDetail } from "../../redux/actions";
-import Footer from "../Footer/Footer";
 import { useParams } from "react-router-dom";
 import NavBarTheater from "../NavBar/NavBarTheater";
 import style from "./EditProfileTheater.module.css";
@@ -65,7 +64,7 @@ const EditProfileTheater = () => {
 
   useEffect(() => {
     dispatch(theaterDetail(id));
-  }, [dispatch]);
+  }, [dispatch, id]);
 
   const handleChange = ({ target: { name, value } }) => {
     setInput({

@@ -6,14 +6,12 @@ import NavBarViewer from "../NavBar/NavBarViewer.js";
 import SearchBar from "../SearchBar/SearchBar.js";
 import Paginate from "../Paginate/Paginate.js";
 import style from "./HomeViewer.module.css";
-import Footer from "../Footer/Footer.js";
 
 import CarouselContainer from "../Carrousel/Carrousel.js";
 import { useParams } from "react-router-dom";
 import { getViewerDetail } from "../../redux/actions/index.js";
 const HomeViewer = () => {
   const dispatch = useDispatch();
-  const show = useSelector((state) => state.shows);
   const allshows = useSelector((state) => state.shows);
   const [, setOrder] = useState("");
   const [actualPage, setActualPage] = useState(1);
@@ -32,17 +30,8 @@ const HomeViewer = () => {
   }, [dispatch, id]);
 
   const shows = allshows?.filter((e) => e.theater.province === detail.province);
-  // console.log(shows);
 
   return (
-    //     <div className={style.homeContainer}>
-    //       <NavBarViewer />
-    //       <div className={style.showsContainer}>
-    //         <Shows />
-    //       </div>
-    //     </div>
-    //   );
-    // };
     <div className={style.homeContainer}>
       <div className={style.navContainer}>
         <NavBarViewer setActualPage={setActualPage} setOrder={setOrder} />
@@ -66,9 +55,6 @@ const HomeViewer = () => {
       <div className={style.paginate}>
         <Paginate qty={qty} allshows={allshows.length} paginate={paginate} />
       </div>
-      {/* <div className={style.footerContainer}>
-        <Footer />
-      </div> */}
     </div>
   );
 };

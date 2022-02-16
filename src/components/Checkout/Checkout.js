@@ -5,32 +5,28 @@ import { Link, useParams } from "react-router-dom";
 import logo from "../../assets/logo a sala llena-sinfondo.png";
 import style from "./Checkout.module.css";
 
-export default function Checkout({price, seatNumber, idShow}) {
-    //const show = useSelector((state) => state.showdetail);
-    //const ticket = useSelector((state) => state.ticket);
-    const link = useSelector((state) => state.link);
-    const { idViewer } = useParams(); 
-    const dispatch = useDispatch();
+export default function Checkout({ price, seatNumber, idShow }) {
+  //const show = useSelector((state) => state.showdetail);
+  //const ticket = useSelector((state) => state.ticket);
+  const link = useSelector((state) => state.link);
+  const { idViewer } = useParams();
+  const dispatch = useDispatch();
 
-    function buttonMp () {
-        dispatch(checkoutPay({price, seatNumber, idShow, idViewer}))
-    }
+  function buttonMp() {
+    dispatch(checkoutPay({ price, seatNumber, idShow, idViewer }));
+  }
 
-    return (
-        <div>
-            <Link to="/">
-                 <img src={logo} className={style.logo} alt="A sala llena" />
-             </Link>
-           <button variant="dark" onClick={(e) => buttonMp(e)}>
-                Confirmar pago
-              </button>
-              {
-                  link && window.open(link)
-              }
+  return (
+    <div>
+      <Link to="/">
+        <img src={logo} className={style.logo} alt="A sala llena" />
+      </Link>
+      <button variant="dark" onClick={(e) => buttonMp(e)}>
+        Confirmar pago
+      </button>
+      {link && window.open(link)}
     </div>
-  )
-
-
+  );
 }
 
 // export default function Checkout({precio}) {

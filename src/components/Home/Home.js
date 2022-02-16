@@ -1,21 +1,17 @@
 import React, { useState, useEffect } from "react";
-// import { Link } from "react-router-dom";
 import NavBarAll from "../NavBar/NavBarAll";
 import SearchBar from "../SearchBar/SearchBar.js";
 import Shows from "../Shows/Shows";
 import Paginate from "../Paginate/Paginate";
 import { allShows } from "../../redux/actions";
 import { useDispatch, useSelector } from "react-redux";
-import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
 import style from "./Home.module.css";
-// import Footer from "../Footer/Footer";
 
 import CarouselContainer from "../Carrousel/Carrousel.js";
 import CarrouselReview from "../Carrousel/CarrouselReview.js";
 
 export default function Home() {
   const dispatch = useDispatch();
-  const history = useHistory();
   const allshows = useSelector((state) => state.shows);
   const [, setOrder] = useState("");
   const [actualPage, setActualPage] = useState(1);

@@ -1,11 +1,9 @@
 import React, { useState, useEffect } from "react";
 import GoogleLogin from "react-google-login";
 import { Link } from "react-router-dom";
-import { useLocation } from "react-router-dom";
 import useUser from "../../hooks/useUser.js";
 import { allTheaters } from "../../redux/actions/index.js";
 import { useSelector, useDispatch } from "react-redux";
-//import Footer from "../Footer/Footer.js";
 import logo from "../../assets/logo a sala llena-sinfondo.png";
 import style from "./LoginTheaters.module.css";
 function validate(input) {
@@ -111,10 +109,8 @@ const LogInTheatres = () => {
         <Link to="/theaterRegister">
           <button>REGISTRARSE</button>
         </Link>
+        <Link to="/passwordRecoveryTheater">Olvide mi contraseña</Link>
       </div>
-      {/* <div>
-        <Footer />
-      </div> */}
     </div>
   );
 };

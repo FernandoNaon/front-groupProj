@@ -1,0 +1,41 @@
+.newsletter {
+  height: 100vh;
+}
+
+.navContainer {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.inputContainer {
+  margin-top: 3rem;
+  color: aliceblue;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.inp {
+  font-size: 1.2em;
+  margin-bottom: 1rem;
+}
+
+.select {
+  margin: 2rem 0 2rem 0;
+}
+
+.btn {
+  border: none;
+  border-radius: 5px;
+  background-color: rgba(226, 220, 220, 0.877);
+  cursor: pointer;
+}
+
+.btn:hover {
+  background-color: rgba(255, 255, 255, 0.877);
+}
+
+.footerContainer {
+  position: absolute;
+  bottom: 0;
+}

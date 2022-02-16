@@ -1,7 +1,6 @@
 import React, { Fragment, useRef } from "react";
 import { createTheater } from "../../redux/actions";
 import { useForm } from "react-hook-form";
-import Footer from "../Footer/Footer";
 import { useHistory } from "react-router-dom";
 
 const FormTheater = () => {
@@ -109,11 +108,6 @@ const FormTheater = () => {
                 value: 8,
                 message: "Minimo 8 caracteres",
               },
-              // pattern: {
-              //   value: /(?=(.*[0-9]))(?=.*[a-z])(?=(.*[A-Z]))(?=(.*)).{8,}/,
-              //   message:
-              //     "Debe tener una letra minúscula, una letra mayúscula, un número, mínimo 8 dígitos.",
-              // },
             })}
           />
           {
@@ -256,7 +250,6 @@ const FormTheater = () => {
           </button>
         </form>
       </Fragment>
-      {/* <Footer/> */}
     </div>
   );
 };

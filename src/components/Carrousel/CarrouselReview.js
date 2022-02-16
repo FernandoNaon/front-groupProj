@@ -1,5 +1,4 @@
 import React, { useEffect } from "react";
-import { Link } from "react-router-dom";
 import Carousel from "react-bootstrap/Carousel";
 import { getAllReview } from "../../redux/actions/index.js";
 import { useDispatch, useSelector } from "react-redux";
@@ -15,8 +14,8 @@ const CarrouselReview = () => {
   return (
     <Carousel variant="dark">
       {ultimos?.map((e, i) => (
-        <Carousel.Item>
-          <div className="ContainerReview">
+        <Carousel.Item key={e.id}>
+          <div className="ContainerReview" key={e.id}>
             <div>
               <h4>Espectaculo: </h4>
               <h5>{e.show.name}</h5>

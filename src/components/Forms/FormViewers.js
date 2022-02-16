@@ -1,11 +1,7 @@
 import React, { Fragment, useRef } from "react";
-import { postViewer } from "../../redux/actions/index.js";
 import { useForm } from "react-hook-form";
-import Footer from "../Footer/Footer.js";
 
-import { useHistory } from "react-router-dom";
 const FormViewers = () => {
-  const history = useHistory();
   const {
     register,
     handleSubmit,

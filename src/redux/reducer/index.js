@@ -21,6 +21,8 @@ import {
   POST_NEWSLETTER_SHOW,
   GET_ALL_TICKETS,
   GET_ALL_REVIEW,
+  POST_PASSWORD_RECOVERY_VIEWER,
+  POST_PASSWORD_RECOVERY_THEATER,
 } from "../actions/index.js";
 
 const initialState = {
@@ -188,6 +190,14 @@ function rootReducer(state = initialState, action) {
       return {
         ...state,
         allreviews: action.payload,
+      };
+    case POST_PASSWORD_RECOVERY_VIEWER:
+      return {
+        ...state,
+      };
+    case POST_PASSWORD_RECOVERY_THEATER:
+      return {
+        ...state,
       };
     default:
       return state;
