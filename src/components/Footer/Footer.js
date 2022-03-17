@@ -7,17 +7,17 @@ const Footer = () => {
     <div className={style.footerContainer}>
       <div className={style.linksContainer}>
         <a className={style.links} href="/privacyPolicy">
-          Politicas de Privacidad
+          Políticas de Privacidad
         </a>
         <a className={style.links} href="/termsConditions">
-          Terminos y Condiciones
+          Términos y Condiciones
         </a>
       </div>
-      <h5>Contacto</h5>
-      <p>Buenos Aires, Argentina</p>
-      <p>Copyright © 2022 - A Sala Llena</p>
-      <div className={style.logoContainer}>
-        <img className={style.img} src={img} alt="img" />
+      <div className={style.data}>
+        <h5>Contacto</h5>
+        <p>asalallenaapp@gmail.com</p>
+        <p>Buenos Aires, Argentina</p>
+        <p>Copyright © 2022 - A Sala Llena</p>
       </div>
     </div>
   );

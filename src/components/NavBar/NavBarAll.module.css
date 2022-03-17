@@ -1,52 +1,32 @@
-.NavBarAllContainer {
+.buttonsContainer {
   display: flex;
-  /* gap: 40%; */
-  justify-content: space-between;
-}
-.column {
-  width: 13rem;
+  gap: 2rem;
 }
 
 .logo {
-  /* margin-left: 5vw; */
-  height: 8rem;
-  width: auto;
-  border-radius: 50%;
-  box-shadow: 0 5px 25px rgb(255, 255, 255);
+  font-family: Lobster Two;
+  font-size: 2.5rem;
+  margin-left: 1rem;
 }
 
-.loginContainer {
-  display: flex;
-  justify-content: flex-end;
-  align-items: flex-start;
-  font-size: 1rem;
+.heigthConfig {
+  height: 12rem;
+  margin-bottom: 3rem;
+}
+
+.searchContainer {
+  margin-top: 0.7rem;
 }
 
 @media (max-width: 768px) {
-  .NavBarAllContainer {
+  .buttonsContainer {
+    width: 100vw;
     display: flex;
-    /* gap: 40%; */
     justify-content: space-between;
   }
-  .column {
-    display: flex;
-    flex-direction: column;
-    width: 6rem;
-    margin-bottom: 2rem;
-  }
-
   .logo {
-    height: 5rem;
-    width: auto;
-    border-radius: 50%;
-    box-shadow: 0 5px 25px rgb(255, 255, 255);
-    margin-bottom: 2rem;
-  }
-
-  .loginContainer {
-    display: flex;
-    justify-content: flex-end;
-    align-items: flex-start;
-    font-size: 1rem;
+    font-size: 2rem;
+    margin-left: 0.5rem;
+    width: 12rem;
   }
 }

@@ -1,75 +1,25 @@
-.cardContainer {
-  margin: 20px;
-  height: 15rem;
-  width: 50rem;
-  background-repeat: no-repeat;
-  background-size: cover;
-  backdrop-filter: blur(18px);
-  border-radius: 8px;
-  -webkit-box-shadow: 20px 20px 22px rgba(0, 0, 0, 0.2);
-  box-shadow: 20px 20px 22px rgba(0, 0, 0, 0.2);
-  font-family: "Poppins", sans-serif;
+.container {
+  /* border: 2px solid red; */
+  width: 22rem;
   display: flex;
+  margin-left: 1rem;
 }
+
 .cardContainer:hover {
+  /* transform: scale(1.03);
+  opacity: 0.95;
+  transition: all 250ms ease-in-out 0s; */
   box-shadow: 0 12px 24px 0 rgba(0, 0, 0, 0.2);
   transform: scale(1.02);
 }
 
-.image {
-  height: 15rem;
-  width: 15rem;
-}
-
-.right {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  width: 35rem;
-  height: 15rem;
-  color: white;
-}
-
 .title {
-  font-size: 2rem;
-  font-weight: 900;
+  font-family: "Montserrat", sans-serif;
+  text-transform: uppercase;
+  letter-spacing: 0.2;
 }
 
-@media (max-width: 768px) {
-  .cardContainer {
-    margin-right: 2rem;
-    height: 16rem;
-    width: 22rem;
-    background-repeat: no-repeat;
-    background-size: cover;
-    backdrop-filter: blur(18px);
-    border-radius: 8px;
-    -webkit-box-shadow: 20px 20px 22px rgba(0, 0, 0, 0.2);
-    box-shadow: 20px 20px 22px rgba(0, 0, 0, 0.2);
-    font-family: "Poppins", sans-serif;
-    display: flex;
-  }
-  .cardContainer:hover {
-    box-shadow: 0 12px 24px 0 rgba(0, 0, 0, 0.2);
-    transform: scale(1.02);
-  }
-
-  .image {
-    height: 16rem;
-    width: 10rem;
-  }
-
-  .right {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    width: 35rem;
-    height: 15rem;
-    color: white;
-  }
-
-  .title {
-    font-size: 1rem;
-    font-weight: 900;
-  }
+.subtitle {
+  font-family: "Montserrat", sans-serif;
+  color: #6a6a6a;
 }

@@ -3,15 +3,26 @@
   /* background: linear-gradient(#62016e, #070047); */
 }
 
-.showsContainer {
-  margin-top: 2rem;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
+.carouselContainer {
+  margin-bottom: 3rem;
 }
 
-.footerContainer {
-  position: fixed;
-  bottom: 0px;
+.showsContainer {
+  width: 52rem;
+  margin: auto;
+}
+
+.paginate {
+  display: flex;
+  justify-content: center;
+}
+
+.noShows {
+  min-height: 60vh;
+}
+
+@media (max-width: 768px) {
+  .showsContainer {
+    width: 24rem;
+  }
 }

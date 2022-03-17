@@ -1,21 +1,35 @@
-.footerContainer {
-  position: absolute;
-  bottom: 0;
+.nav {
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 2rem;
 }
 
-.formContainer {
+.formTheaterContainer {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  height: auto;
+  margin: 1rem;
+}
+
+.formTheaterPut {
   display: flex;
   flex-direction: column;
-  padding: 2rem;
+  /* border: 0.3rem solid rgba(20,11,14,0.76);
+  border-radius: 2rem;
+  border-color: black; */
+  max-width: 40rem;
+  max-height: 70rem;
+  /* box-shadow: rgb(51, 49, 49) 10px 10px; */
+  padding: 50px 40px;
+  margin: 0 auto;
+  align-items: left;
+  margin-top: 1rem;
+}
+.imagen {
+  height: 5rem;
 }
 
-.btn {
-  border: none;
-  border-radius: 5px;
-  background-color: rgba(226, 220, 220, 0.877);
-  cursor: pointer;
-}
-
-.btn:hover {
-  background-color: rgba(255, 255, 255, 0.877);
+.btnContainer {
+  margin-bottom: 3rem;
 }

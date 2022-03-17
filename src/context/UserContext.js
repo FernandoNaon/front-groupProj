@@ -6,17 +6,32 @@ const Context = React.createContext({})
 
 export function UserContextProvider ({children}) {
   
-  const [key, setKey] = useState(
-    () => window.sessionStorage.getItem('key')
+  const [status, setStatus] = useState(
+    () => window.sessionStorage.getItem('status')
+  );
+  const [loginData, setLoginData] = useState(
+    () => window.sessionStorage.getItem('loginData')
+  );
+  const [id,setId] = useState(
+    () => window.sessionStorage.getItem('id')
+  )
+  ;
+  const [img,setImg] = useState(
+    () => window.sessionStorage.getItem('img')
   )
   
-
   
 
   return <Context.Provider value={{
+    status,
+    setStatus,
+    loginData,
+    setLoginData,
+    id,
+    setId,
     
-    setKey,
-    
+    img,
+    setImg
   }}>
     {children}
   </Context.Provider>

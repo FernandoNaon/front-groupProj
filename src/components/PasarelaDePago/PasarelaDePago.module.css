@@ -1,0 +1,49 @@
+.seat {
+  margin-top: 20px;
+  display: flex;
+  justify-content: center;
+}
+
+.logo {
+  color: white;
+  font-family: Lobster Two;
+  font-size: 2.5rem;
+  margin-left: 1rem;
+}
+.heigthConfig {
+  height: 12rem;
+  margin-bottom: 3rem;
+}
+
+.tickets {
+  margin: 2rem;
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+}
+
+.containerSeatsNumber{
+  display: flex;
+  justify-content: center;
+  flex-direction: row;
+}
+.operation{
+  margin: 0px 10px;
+  padding: 5px;
+  height: 23px;
+  width: 23px;
+  border-radius: 50%;
+}
+.operation:hover{
+  background-color: #6feaf6;
+}
+
+.less{
+  background-image: url('../../assets/icons8-minus-32.png');
+  background-size: contain;
+}
+
+.sum{
+  background-image: url('../../assets/icons8-plus-+-32.png');
+  background-size: contain;
+}

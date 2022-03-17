@@ -1,0 +1,20 @@
+.title {
+  margin-bottom: 2rem;
+}
+
+.card {
+  border: 2px solid rgb(167, 164, 164);
+  width: fit-content;
+  margin: auto;
+  padding: 2rem;
+  border-radius: 15px;
+}
+
+.codigoQr {
+  height: 10rem;
+  width: 10rem;
+}
+
+.btnContainer {
+  margin: 1rem;
+}

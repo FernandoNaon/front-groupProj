@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useParams } from "react-router-dom";
+import { useParams, Link } from "react-router-dom";
 import {
   allShows,
   getViewerDetail,
@@ -8,9 +8,9 @@ import {
   allTheaters,
 } from "../../redux/actions/index.js";
 import NavBarPerfilViewer from "../NavBar/NavBarPerfilViewer.js";
-import Footer from "../Footer/Footer.js";
 import Review from "../ReviewV/ReviewV.js";
 import style from "./ViewerHistory.module.css";
+import { Button, Card } from "react-bootstrap";
 
 const ViewerHistory = () => {
   const dispatch = useDispatch();
@@ -20,8 +20,12 @@ const ViewerHistory = () => {
   const theater = useSelector((state) => state.theaters);
   const [button, setButton] = useState(true);
   const { id } = useParams();
+  
+  
   let showID;
   let theaterID;
+
+  
 
   useEffect(() => {
     dispatch(allShows());
@@ -39,7 +43,7 @@ const ViewerHistory = () => {
   let filterTicket = ticket?.filter((e) => e.viewerId === viewer.id);
   console.log("filterTicket", filterTicket);
 
-  for (let i = 0; i < filterTicket.length; i++) {
+  for (let i = 0; i < filterTicket?.length; i++) {
     showID = filterTicket[i].showId;
   }
   console.log(showID);
@@ -47,12 +51,23 @@ const ViewerHistory = () => {
   let filterShow = show?.filter((e) => e.id === showID);
   console.log("filterShow", filterShow);
 
-  for (let j = 0; j < filterShow.length; j++) {
+  let showStatus = filterShow?.map((e) => e.released);
+  console.log("showStatus", showStatus);
+
+  let status;
+
+  for (let e = 0; e < showStatus?.length; e++) {
+    status = showStatus[e];
+  }
+
+  console.log("status", status);
+
+  for (let j = 0; j < filterShow?.length; j++) {
     theaterID = filterShow[j].theaterId;
   }
   console.log("theaterID", theaterID);
 
-  let total = filterTicket.map((e) => e.price);
+  let total = filterTicket?.map((e) => e.price);
 
   console.log(total);
 
@@ -62,34 +77,50 @@ const ViewerHistory = () => {
   return (
     <div>
       <div className={style.navContainer}>
-        <NavBarPerfilViewer />
+        <NavBarPerfilViewer name={viewer?.name} />
       </div>
-      <div className={style.card}>
-        {filterShow.length && filterTicket.length ? (
-          filterShow.map((e) => {
+      <h2>Opiniones</h2>
+
+      <div className={style.container}>
+        {filterShow?.length && filterTicket?.length ? (
+          filterShow?.map((e) => {
             return (
               <div key={e.id}>
-                <h3>{e.name}</h3>
-                <p>{filterTheater?.name} </p>
-                <p>
-                  Funcion: {e.date} {e.time}
-                </p>
-                <h4>Cantidad: {filterTicket.length}</h4>
-                <h4>
-                  Total: $
-                  {total?.reduce(function (a, b) {
-                    return a + b;
-                  })}{" "}
-                </h4>
+                <div className={style.card}>
+                  <Card border="dark" style={{ width: "18rem" }}>
+                    <Card.Header>{filterTheater?.name}</Card.Header>
+                    <Card.Body>
+                      <Card.Title>{e.name}</Card.Title>
+                      <Card.Text>
+                        <p>
+                          Función: {e.date} {e.time}
+                        </p>
+                        {/*<h5>Cantidad: {filterTicket?.length}</h5>*/}
+                        <h5>
+                          Total: $
+                          {total?.reduce(function (a, b) {
+                            return a + b;
+                          })}
+                        </h5>
+                      </Card.Text>
+                      <Link to={`/ticket/${id}/${e.id}`}>
+                      <Button variant="dark">
+                        Descargar Ticket
+                      </Button>
+                      </Link>
+                    </Card.Body>
+                  </Card>
+                </div>
+                <Button variant="dark" onClick={onClick}>
+                  Agrega tu opinión
+                </Button>
                 <div>
-                  <button onClick={onClick} className={style.btn}>
-                    Review
-                  </button>
                   {!button ? (
                     <Review
-                      nameTheater={filterTheater.name}
+                      nameTheater={filterTheater?.name}
                       nameShow={e.name}
                       nameViewer={viewer.name}
+                      status={status}
                     />
                   ) : null}
                 </div>
@@ -97,12 +128,13 @@ const ViewerHistory = () => {
             );
           })
         ) : (
-          <h1>NO HAY ENTRADAS COMPRADAS</h1>
+          <div>
+          {/*<img src='https://media.giphy.com/media/q15kbCtGFqwx8wYx1n/giphy.gif' alt='img'/>*/}
+          <p>NO HAY SHOWS PARA MOSTRAR</p>
+          </div>
         )}
       </div>
-      {/* <div className={style.footerContainer}>
-        <Footer />
-      </div> */}
+      <br />
     </div>
   );
 };

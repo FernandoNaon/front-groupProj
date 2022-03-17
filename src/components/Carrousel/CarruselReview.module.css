@@ -1,0 +1,37 @@
+.ContainerReview {
+  height: 100%;
+  width: 100%;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  display: flex;
+}
+
+.scoreContainer {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+}
+
+.review {
+  font-style: italic;
+}
+
+.card {
+  border: 2px solid rgba(179, 179, 179, 0.726);
+  width: fit-content;
+  padding: 0.5rem;
+  border-radius: 1rem;
+  margin: auto;
+}
+
+@media (max-width: 768px) {
+  .ContainerReview {
+    height: 50%;
+    width: 50%;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    display: flex;
+  }
+}

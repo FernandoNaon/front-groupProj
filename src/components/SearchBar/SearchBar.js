@@ -1,10 +1,13 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
-import { getShowByName } from "../../redux/actions";
+import { getShowByName, allShows } from "../../redux/actions";
 import style from "./SearchBar.module.css";
 import FormControl from "react-bootstrap/FormControl";
 import InputGroup from "react-bootstrap/InputGroup";
 import Button from "react-bootstrap/Button";
+import swal from 'sweetalert'
+import { BiSearchAlt } from "react-icons/bi";
+import { FiRefreshCw } from "react-icons/fi";
 
 export default function SearchBar() {
   const [name, setName] = useState("");
@@ -18,12 +21,17 @@ export default function SearchBar() {
   function handleSubmit(e) {
     e.preventDefault();
     if (!name) {
-      alert("Debe ingresar un nombre de espectáculo");
+      swal("Debe ingresar un nombre de espectáculo", '', 'warning');
     } else {
       dispatch(getShowByName(name));
       //aca iria el dispatch de todos los nombres de las obras de teatro
       setName("");
     }
+  }
+
+  function handleClick(e) {
+    e.preventDefault();
+    dispatch(allShows());
   }
   return (
     <div className={style.searchContainer}>
@@ -37,14 +45,24 @@ export default function SearchBar() {
           onKeyPress={(e) => e.key === "Enter" && handleSubmit(e)}
           value={name}
         />
-        <Button
-          variant="secondary"
-          id="button-addon2"
-          type="submit"
-          onClick={(e) => handleSubmit(e)}
-        >
-          Buscar
-        </Button>
+        <div className={style.btnGroup}>
+          <Button
+            variant="secondary"
+            id="button-addon2"
+            type="submit"
+            onClick={(e) => handleSubmit(e)}
+          >
+            <BiSearchAlt />
+          </Button>
+          <Button
+            variant="secondary"
+            id="button-addon2"
+            type="submit"
+            onClick={(e) => handleClick(e)}
+          >
+            <FiRefreshCw />
+          </Button>
+        </div>
       </InputGroup>
     </div>
   );

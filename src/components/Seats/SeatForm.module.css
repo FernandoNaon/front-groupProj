@@ -1,0 +1,94 @@
+/* @import url('https://fon/ts.googleapis.com/css?family=Lato&display=swap'); */
+
+:root {
+  --color-seat: #444451;
+}
+.component {
+  background-color: rgb(0, 0, 0);
+  width: 23.5rem;
+  margin: 0px;
+  border-radius: 8px;
+}
+
+.label {
+  color: white;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+.container {
+  perspective: 1000px;
+  margin-bottom: 30px;
+  padding: 1rem;
+  margin-left: 2rem;
+}
+
+.seat {
+  background-color: #ffffff;
+  height: 12px;
+  width: 15px;
+  margin: 3px;
+  border-top-left-radius: 4px;
+  border-top-right-radius: 4px;
+  font-size: 10px;
+}
+
+.seat.selected {
+  background-color: #e310ff;
+}
+
+.seat.occupied {
+  background-color: #fff;
+}
+
+.seat:nth-of-type(2) {
+  margin-right: 18px;
+}
+
+.seat:nth-last-of-type(2) {
+  margin-left: 18px;
+}
+
+.seat:not(.occupied):hover {
+  cursor: pointer;
+  transform: scale(1.2);
+}
+
+.showcase .seat:not(.occupied):hover {
+  cursor: default;
+  transform: scale(1);
+}
+
+.showcase {
+  background-color: rgb(161, 160, 160);
+  padding: 5px 10px;
+  border-radius: 5px;
+  color: #777;
+  list-style-type: none;
+  display: flex;
+}
+
+.showcase li {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 10px;
+}
+
+.showcase li small {
+  margin-left: 10px;
+}
+
+.row {
+  display: flex;
+}
+
+.indice {
+  color: #fff;
+  font-size: 10px;
+  height: 10px;
+  width: 15px;
+  margin: 3px;
+}

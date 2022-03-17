@@ -1,52 +1,47 @@
-.navContainer {
-  display: flex;
+.buttonsContainer {
+  margin-right: 6rem;
+}
 
-  gap: 30%;
+.heigthConfig {
+  height: 12rem;
+  margin-bottom: 3rem;
+}
+
+.profileContainer {
+  margin-left: -1.5rem;
+}
+
+.profileImage {
+  height: 5rem;
+  width: 5rem;
+  border-radius: 50%;
+}
+.name {
+  color: rgb(255, 255, 255);
+  
 }
 
 .logo {
-  height: 5rem;
-  margin: 1rem;
-  width: auto;
-  border-radius: 50%;
-  box-shadow: 0 5px 25px rgb(255, 255, 255);
-  margin-bottom: 2rem;
-}
-
-.micuenta {
-  width: 100vw;
-  display: flex;
-  justify-content: flex-end;
-  align-items: flex-start;
-  font-size: 1rem;
+  font-family: Lobster Two;
+  font-size: 2.5rem;
+  margin-left: 1rem;
 }
 
 @media (max-width: 768px) {
-  .NavBarAllContainer {
-    display: flex;
-    /* gap: 40%; */
-    border: 2px solid red;
-    justify-content: space-between;
-  }
-  .column {
-    display: flex;
-    flex-direction: column;
-    width: 6rem;
-    margin-bottom: 2rem;
-  }
-
-  .logo {
-    height: 5rem;
-    width: auto;
+  .profileImage {
+    height: 3rem;
+    width: 3rem;
     border-radius: 50%;
-    box-shadow: 0 5px 25px rgb(255, 255, 255);
-    margin-bottom: 2rem;
   }
-
-  .miCuenta {
+  .profileContainer {
     display: flex;
-    justify-content: flex-end;
-    align-items: flex-start;
-    font-size: 1rem;
+    flex-direction: row-reverse;
+    width: 60vw;
+    margin-top: -3rem;
+    margin-left: 9rem;
+  }
+  .logo {
+    font-size: 1.2rem;
+    margin-left: 0.5rem;
   }
 }

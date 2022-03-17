@@ -1,31 +1,47 @@
 import { useCallback, useContext, useState } from "react";
 import Context from "../context/UserContext.js";
 import { loginTheater, loginViewer } from "../redux/actions/index.js";
-import { useSelector } from "react-redux";
+
 
 const useUser = () => {
-  const { rol, key, id, setRol, setKey, setId, roles, setRoles } =
-    useContext(Context);
+  const { status, setStatus,loginData,setLoginData,id,setId,img,setImg} = useContext(Context);
   const [state, setState] = useState({ loading: false, error: false });
-
+  const [stateG, setStateG] = useState(false);
+  const [idV,setIdV] = useState('');
+  const [idT,setIdT] = useState('');
+  const [statusIdV,setStatusIdV] = useState('');
+  const [statusIdT,setStatusIdT] = useState('');
+  const [imgV,setImgV] = useState('');
+  const [imgT,setImgT] = useState('');
+  console.log(imgT)
+  console.log(statusIdT)
   const login = useCallback(
     (input) => {
       setState({ loading: true, error: false });
       loginTheater(input)
         .then((data) => {
-          window.sessionStorage.setItem("key", data);
-
-          setState({ loading: false, error: false });
-          setKey(data);
+          if(data.error){
+            setState(true);
+          }else{
+          window.sessionStorage.setItem("status", data.isLogged);
+          window.sessionStorage.setItem("id", data.id);
+          window.sessionStorage.setItem("img", data.img);
+          setStatus(data.isLogged);
+          setStatusIdT(window.sessionStorage.getItem('id').valueOf())
+          setImgT(window.sessionStorage.getItem('img')?.valueOf())
+          }
+          
         })
         .catch((err) => {
-          window.sessionStorage.removeItem("key");
-
+          window.sessionStorage.removeItem("status");
+          window.sessionStorage.removeItem("id");
+          window.sessionStorage.removeItem("img");
+          
           setState({ loading: false, error: true });
           console.error(err);
         });
     },
-    [setKey, setId, setRoles]
+    [setStatus]
   );
 
   const loginviewer = useCallback(
@@ -33,39 +49,124 @@ const useUser = () => {
       setState({ loading: true, error: false });
       loginViewer(input)
         .then((data) => {
-          window.sessionStorage.setItem("key", data);
-
-          setState({ loading: false, error: false });
-          setKey(data);
+          if(data.error){
+            setState(true);
+          }else{
+            
+          window.sessionStorage.setItem("status", data.isLogged);
+          window.sessionStorage.setItem("id", data.id);
+          window.sessionStorage.setItem("img", data.img);
+          setStatus(data.isLogged);
+          setStatusIdV(window.sessionStorage.getItem('id').valueOf())
+          setImgV(window.sessionStorage.getItem('img').valueOf())
+          }
+          
+          
         })
         .catch((err) => {
-          window.sessionStorage.removeItem("key");
-
+          window.sessionStorage.removeItem("status");
+          window.sessionStorage.removeItem("id");
+          window.sessionStorage.removeItem("img");
           setState({ loading: false, error: true });
           console.error(err);
         });
-    },
-    [setKey, setId, setRol]
+    },[setStatus]
   );
 
-  const logout = useCallback(() => {
-    window.sessionStorage.removeItem("key");
-    setKey(null);
+  const googleLoginViewer = async (googleData) => {
+    try {
+      const res = await fetch('https://back-pg.herokuapp.com/login/google/viewer', {
+      method: 'POST',
+      body: JSON.stringify({
+        token: googleData.tokenId,
+      }),
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
+  
+    const data = await res.json();
+    
+    if(JSON.stringify(data.id) > 0){
+      setLoginData(data.token);
+      
+      sessionStorage.setItem('loginData', JSON.stringify(data.token));
+      sessionStorage.setItem('id', JSON.stringify(data.id));
+      setIdV(window.sessionStorage.getItem('id').valueOf())
+    }else{
+      setStateG({ loading: false, error: true });
+    }
+    
+    } catch (err) {
+          window.sessionStorage.removeItem("loginData");
+          window.sessionStorage.removeItem("id");
+          
+          setState({ loading: false, error: true });
+          console.error(err);
+    }
+    
+  };
+  
+  const googleLoginTheater = async (googleData) => {
+    const res = await fetch('https://back-pg.herokuapp.com/login/google/theater', {
+      method: 'POST',
+      body: JSON.stringify({
+        token: googleData.tokenId,
+      }),
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
+  
+    const data = await res.json();
+    if(JSON.stringify(data.id) > 0){
+      setLoginData(data.token);
+      
+      sessionStorage.setItem('loginData', JSON.stringify(data.token));
+      sessionStorage.setItem('id', JSON.stringify(data.id));
+      setIdT(window.sessionStorage.getItem('id').valueOf())
+    }else{
+      setStateG({ loading: false, error: true });
+    }
+    
+    
+  };
+ 
 
-    //setRol(null)
-    window.location.href = "https://front-group-proj.vercel.app/";
-  }, [setKey]);
+   const logout = useCallback(() => {
+    window.sessionStorage.removeItem("status");
+    window.sessionStorage.removeItem("loginData");
+    window.sessionStorage.removeItem("id");
+    window.sessionStorage.removeItem("img");
+    
+    setStatusIdV(null);
+    setStatus(null);
+    setLoginData(null);
+    setId(null);
+    setImgT(null);
+    setImgV(null);
+    window.location.href="https://front-pg.vercel.app"
+  }, [setStatus,setLoginData,setId])
 
   return {
-    isLogged: Boolean(key),
+    isLogged: Boolean(status),
     isLoginLoading: state.loading,
     hasLoginError: state.error,
+    hasLoginErrorG: stateG.error,
     login,
     logout,
     loginviewer,
-    id,
-    rol,
-    roles,
+    googleLoginViewer,
+    googleLoginTheater,
+    idV,
+    idT,
+    statusIdV,
+    statusIdT,
+    imgV,
+    imgT,
+    
+    
+    
   };
 };
 

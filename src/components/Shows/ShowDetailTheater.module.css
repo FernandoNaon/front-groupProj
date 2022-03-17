@@ -1,0 +1,107 @@
+.heigthConfig {
+  height: 12rem;
+  margin-bottom: 3rem;
+}
+
+.detailContainer {
+  margin-bottom: 3rem;
+}
+
+.cardDetail {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  /* border: 2px solid black; */
+  margin: 2rem;
+}
+
+.title {
+  font-family: "Montserrat", sans-serif;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  margin-bottom: 2rem;
+}
+
+.first {
+  width: 80vw;
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+  margin: 2rem 0 2rem 0;
+}
+
+.boxSummary {
+  width: 63rem;
+  height: auto;
+  margin: 2rem;
+}
+
+.box {
+  /* border: 2px solid rgb(122, 122, 122); */
+  width: 20rem;
+  height: 8rem;
+  box-shadow: 0 12px 24px 0 rgba(0, 0, 0, 0.2);
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+h3 {
+  color: rgb(133, 138, 143);
+}
+.timerContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.highlight {
+  color: rgb(150, 3, 235);
+}
+
+.image {
+  height: 20rem;
+  width: 20rem;
+  max-width: 40rem;
+}
+
+.description {
+  width: 90vw;
+  font-size: 1rem;
+}
+
+.timer {
+  display: flex;
+  gap: 0.3rem;
+}
+
+.btn {
+  margin-top: 2rem;
+}
+
+.logo {
+  font-family: Lobster Two;
+  font-size: 2.5rem;
+  margin-left: 1rem;
+}
+
+@media (max-width: 768px) {
+  .boxSummary {
+    width: 90vw;
+  }
+
+  .timer {
+    gap: 0.1rem;
+  }
+
+  h3 {
+    font-size: 0.7rem;
+  }
+  .first {
+    display: flex;
+    flex-direction: column;
+  }
+}

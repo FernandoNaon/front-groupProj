@@ -1,0 +1,32 @@
+.formTheaterContainer {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  height: auto;
+}
+.heigthConfig {
+  height: 12rem;
+  margin-bottom: 1rem;
+}
+
+.title {
+  color: black;
+}
+
+.logo {
+  font-family: Lobster Two;
+  font-size: 2.5rem;
+  margin-left: 1rem;
+}
+
+.formTheaterCreate {
+  display: flex;
+  flex-direction: column;
+
+  max-width: 40rem;
+  max-height: 80rem;
+  padding: 50px 40px;
+  margin: 0 auto;
+  align-items: left;
+  margin-top: 1rem;
+}

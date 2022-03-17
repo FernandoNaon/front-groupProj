@@ -1,67 +1,72 @@
-import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import React, { useState, useEffect } from "react";
 import { postPasswordRecoveryTheater } from "../../redux/actions/index.js";
-import { useDispatch } from "react-redux";
-import logo from "../../assets/logo a sala llena-sinfondo.png";
-import style from "./LoginTheaters.module.css";
+import { useDispatch, useSelector } from "react-redux";
+import { allTheaters } from "../../redux/actions/index.js";
+import { Navbar, Form, Container, Button } from "react-bootstrap";
+import style from "./PasswordRecoveryTheater.module.css";
+import swal from "sweetalert";
 
-function validate(input) {
-  let errors = {};
-  if (input.email === "") {
-    errors.email = "e-mail no puede estar vacio";
-  }
-  if (!input.email.includes("@")) {
-    errors.email = "No es un email valido";
-  }
-  return errors;
-}
 const PasswordRecoveryTheater = () => {
   const dispatch = useDispatch();
+  const theaters = useSelector((state) => state.theaters);
   const [input, setInput] = useState({ email: "" });
-  const [errors, setErrors] = useState({});
+
+  useEffect(() => {
+    dispatch(allTheaters());
+  }, [dispatch]);
 
   function inputChange(e) {
     setInput({
       ...input,
       [e.target.name]: e.target.value,
     });
-    setErrors(
-      validate({
-        ...input,
-        [e.target.name]: e.target.value,
-      })
-    );
   }
 
   function handleSubmit(e) {
     e.preventDefault();
-    dispatch(postPasswordRecoveryTheater(input.email));
-    window.location.href = `https://front-group-proj.vercel.app`;
-    alert("Email enviado!");
-    setInput({ email: "" });
+    const filterTheater = theaters?.find((e) => e.email === input.email);
+    if (filterTheater) {
+      postPasswordRecoveryTheater(input.email);
+      swal("Email enviado!", "", "success");
+      window.location.href = `https://front-group-proj.vercel.app/`;
+      setInput("");
+    } else {
+      swal("", "Este email no esta registrado!", "error");
+    }
   }
 
   return (
-    <div className={style.loginContainer}>
-      <div className={style.header}>
-        <Link to="/">
-          <img className={style.logo} src={logo} alt="A sala llena" />
-        </Link>
-      </div>
-      <div className={style.formContainer}>
-        <h2>Ingresa tu correo electronico</h2>
-        <form className={style.inputs} onSubmit={handleSubmit}>
-          <input
-            type="text"
-            placeholder="Email..."
-            value={input.email}
-            name="email"
-            onChange={inputChange}
-          />
-          {errors.email && <p>{errors.email}</p>}
-
-          <button>Enviar</button>
-        </form>
+    <div>
+      <Navbar
+        className={style.heigthConfig}
+        bg="dark"
+        variant="dark"
+        expand={false}
+      >
+        <Container fluid>
+          <Navbar.Brand href="/">
+            <p className={style.logo}>A Sala Llena</p>
+          </Navbar.Brand>
+        </Container>
+      </Navbar>
+      <div className={style.bodyContainer}>
+        <h2>Ingresa tu correo electrónico</h2>
+        <div className={style.loginContainer}>
+          <Form>
+            <Form.Group className="mb-3" controlId="formBasicEmail">
+              <Form.Control
+                type="text"
+                placeholder="Email..."
+                value={input.email}
+                name="email"
+                onChange={inputChange}
+              />
+            </Form.Group>
+            <Button variant="dark" type="submit" onClick={handleSubmit}>
+              Enviar
+            </Button>
+          </Form>
+        </div>
       </div>
     </div>
   );

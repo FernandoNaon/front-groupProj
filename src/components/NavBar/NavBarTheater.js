@@ -1,11 +1,12 @@
 import React from "react";
-import { Link, useHistory } from "react-router-dom";
-import logo from "../../assets/logo a sala llena-sinfondo.png";
+import { useHistory, Link } from "react-router-dom";
 import useUser from "../../hooks/useUser";
 import style from "./NavBarTheater.module.css";
 import Dropdown from "react-bootstrap/Dropdown";
+import { Navbar, Container, Button } from "react-bootstrap";
+import SearchBar from "../SearchBar/SearchBar";
 
-export default function NavBarTheater({ id }) {
+export default function NavBarTheater({ id, img, name }) {
   const { logout } = useUser();
 
   const history = useHistory();
@@ -17,35 +18,58 @@ export default function NavBarTheater({ id }) {
 
   return (
     <div className={style.navContainer}>
-      <div className={style.logoContainer}>
-        <Link to="/">
-          <img className={style.logo} src={logo} alt="A sala llena" />
-        </Link>
-      </div>
-      <div className={style.micuenta}>
-        <Dropdown>
-          <Dropdown.Toggle variant="secondary" id="dropdown-basic">
-            Mi cuenta
-          </Dropdown.Toggle>
+      <Navbar
+        className={style.heigthConfig}
+        bg="dark"
+        variant="dark"
+        expand={false}
+      >
+        <Container fluid>
+          <Navbar.Brand href={`/theaterHome/${id}`}>
+            <p className={style.logo}>A Sala Llena</p>
+          </Navbar.Brand>
+          <div className={style.profileContainer}>
+            {/*<img className={style.profileImage} src={img} alt="img" />*/}
+            <p className={style.name}>Hola {name}!</p>
+          </div>
 
-          <Dropdown.Menu>
-            <Dropdown.Item href={`/create/${id}`}>
-              <button href={`/create/${id}`}>Agregar espectáculos</button>
-            </Dropdown.Item>
-            <Dropdown.Item href={`/salesHistory/${id}`}>
-              <button>Ventas</button>
-            </Dropdown.Item>
-            <Dropdown.Item
-              onClick={() => history.push(`/editProfileTheater/${id}`)}
-            >
-              <button>Perfil</button>
-            </Dropdown.Item>
-            <Dropdown.Item href="">
-              <button onClick={handleLogOut}>Cerrar Sesión</button>
-            </Dropdown.Item>
-          </Dropdown.Menu>
-        </Dropdown>
-      </div>
+          <div className={style.searchContainer}>
+            <SearchBar />
+          </div>
+
+          <div className={style.buttonsContainer}>
+            {/* //------------------Boton Dropdown------------------------- */}
+            <Dropdown>
+              <Dropdown.Toggle variant="secondary" id="dropdown-basic">
+                Mi cuenta
+              </Dropdown.Toggle>
+
+              <Dropdown.Menu>
+                <Dropdown.Item href={`/create/${id}`}>
+                  <Button variant="outline-dark" href={`/create/${id}`}>
+                    Agregar espectáculos
+                  </Button>
+                </Dropdown.Item>
+                <Dropdown.Item href={`/salesHistory/${id}`}>
+                  <Button variant="outline-dark">Ventas</Button>
+                </Dropdown.Item>
+                <Dropdown.Item
+                  onClick={() =>
+                    history.push(`/editProfileTheater/${id}`)
+                  }
+                >
+                  <Button variant="outline-dark">Perfil</Button>
+                </Dropdown.Item>
+                <Dropdown.Item href="">
+                  <Button variant="outline-dark" onClick={handleLogOut}>
+                    Cerrar Sesión
+                  </Button>
+                </Dropdown.Item>
+              </Dropdown.Menu>
+            </Dropdown>
+          </div>
+        </Container>
+      </Navbar>
     </div>
   );
 }

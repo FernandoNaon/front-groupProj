@@ -1,4 +1,5 @@
 import axios from "axios";
+import swal from "sweetalert";
 
 export function orderScore(payload) {
   return {
@@ -141,42 +142,17 @@ export function getViewerDetail(id) {
   };
 }
 
-//export function loginTheater ({ email, password }) {
-//    console.log(email)
-//    return fetch('https://back-group-proj.herokuapp.com/login/theater', {
-//      method: 'POST',
-//      headers: {
-//        "Content-Type": "application/json"
-//      },
-//      body: JSON.stringify({email, password})
-//
-//    }).then(res => {
-//      if (!res.ok) throw new Error('Response is NOT ok')
-//      return res.json()
-//    }).then(res => {
-//      const { jwt } = res
-//      return jwt
-//    })
-//  }
-
 export function loginTheater({ email, password }) {
   console.log(email);
-  return (
-    axios
-      .post("https://back-group-proj.herokuapp.com/login/theater", {
-        email,
-        password,
-      })
-
-      //.then(res => {
-      //  if (!res.ok) throw new Error('Response is NOT ok')
-      //  return res.json()
-      //})
-      .then((res) => {
-        return res.data;
-      })
-      .catch((error) => console.log(error))
-  );
+  return axios
+    .post("https://back-group-proj.herokuapp.com/login/theater", {
+      email,
+      password,
+    })
+    .then((res) => {
+      return res.data;
+    })
+    .catch((error) => console.log(error));
 }
 
 export function putViewer(id, changes) {
@@ -198,6 +174,17 @@ export function putTicket(id, nuevoticket) {
       .then((response) => response.data)
       .then((data) => {
         dispatch({ type: PUT_TICKET, payload: data });
+      });
+  };
+}
+
+export function putShow(id, nuevoshow) {
+  return function (dispatch) {
+    return axios
+      .put(`https://back-group-proj.herokuapp.com/shows/${id}`, nuevoshow)
+      .then((response) => response.data)
+      .then((data) => {
+        dispatch({ type: PUT_SHOW, payload: data });
       });
   };
 }
@@ -224,41 +211,29 @@ export function deleteViewer(id) {
   };
 }
 
-//export function loginViewer ({ email, password }) {
-//    console.log(email)
-//    return fetch('https://back-group-proj.herokuapp.com/login/viewer', {
-//      method: 'POST',
-//      headers: {
-//        "Content-Type": "application/json"
-//      },
-//      body: JSON.stringify({email, password})
-//
-//    }).then(res => {
-//      if (!res.ok) throw new Error('Response is NOT ok')
-//      return res.json()
-//    }).then(res => {
-//      const { jwt } = res
-//      return jwt
-//    })
-//  }
+export function deleteTheater(id) {
+  return function (dispatch) {
+    return axios
+      .delete(`https://back-group-proj.herokuapp.com/theaters/${id}`)
+      .then((response) => response.data)
+      .then((data) => {
+        dispatch({ type: DELETE_THEATRER, payload: data });
+      });
+  };
+}
 
 export function loginViewer({ email, password }) {
   console.log(email);
-  return (
-    axios
-      .post("https://back-group-proj.herokuapp.com/login/viewer", {
-        email,
-        password,
-      })
-      //.then(res => {
-      //  if (!res.ok) throw new Error('Response is NOT ok')
-      //  return res.json()
-      //})
-      .then((res) => {
-        return res.data;
-      })
-      .catch((error) => console.log(error))
-  );
+  return axios
+    .post("https://back-group-proj.herokuapp.com/login/viewer", {
+      email,
+      password,
+    })
+
+    .then((res) => {
+      return res.data;
+    })
+    .catch((error) => console.log(error));
 }
 
 export function getShowByName(name) {
@@ -272,26 +247,14 @@ export function getShowByName(name) {
         payload: resp.data,
       });
     } catch (e) {
-      alert("No hay espectáculos con ese nombre");
+      swal({
+        title: "No hay espectáculos con ese nombre",
+        icon: "error",
+      });
       return console.log(e);
     }
   };
 }
-
-// export function editProfileT(payload) {
-//   return async function (dispatch) {
-//     try {
-//       const { data } = await axios.put(
-//         `https://back-group-proj.herokuapp.com/theaters/${payload.id}`,
-//         payload
-//       );
-//       alert(data);
-//       return dispatch({ type: PUT_PROFILE_THEATER });
-//     } catch (err) {
-//       console.log(err);
-//     }
-//   };
-// }
 
 export function editProfileT(id, changes) {
   return function (dispatch) {
@@ -387,64 +350,12 @@ export function postReview(
   }
 }
 
-// export function checkoutPay(id) {
-// console.log(id)
-// // var script = document.createElement('script');
-// //         script.src = "https://www.mercadopago.com.ar/integrations/v1/web-payment-checkout.js";
-// //         // const attr_data_preference = document.createAttribute('data-preference-id') //Crea un nodo atribute
-// //         // attr_data_preference.value = id.id
-// //         // script.setAttributeNode(script);
-// //         script.type = "text/javascript";
-// //         script.dataset.preferenceId =  axios
-// //         .post ('https://back-group-proj.herokuapp.com/tickets/pay', {id}).preferenceId;
-// //         document.getElementById("button-checkout").innerHTML = "";
-// //         document.querySelector("#button-checkout").appendChild(script);
-// return (
-//     axios.post ('https://back-group-proj.herokuapp.com/tickets/pay', {id})
-//         .then((res) => {
-//             console.log(res.data)
-//             return res.data
-//         })
-//         .catch((e) => console.log(e))
-// )
-
-// return async function (dispatch) {
-//     try{
-//         const pay = await axios.post ('https://back-group-proj.herokuapp.com/tickets/pay', {id})
-
-//         var script = document.createElement('script');
-//         script.src = "https://www.mercadopago.com.ar/integrations/v1/web-payment-checkout.js";
-//         // const attr_data_preference = document.createAttribute('data-preference-id') //Crea un nodo atribute
-//       // attr_data_preference.value = id.id
-//         // script.setAttributeNode(script);
-//         script.type = "text/javascript";
-//         script.dataset.preferenceId = pay.preferenceId;
-//         document.getElementById("button-checkout").innerHTML = "";
-//         document.querySelector("#button-checkout").appendChild(script);
-//         // var key = pay.data
-//         // console.log(key)
-//         // window.location.href = 'https://sandbox.mercadopago.com.ar/checkout/v1/redirect?pref_id=672708410-642e44a0-3182-4983-b7d7-3e01eebce9e5'
-//         // console.log(window.location)
-//         dispatch({
-//             type: CHECKOUT_PAY,
-//             payload: pay.data,
-//             // key
-//         })
-//         // window.location = pay.data.redirect
-//     } catch(e) {
-//         console.log(e)
-//     }
-// }
-
-// }
-
-export function checkoutPay({ price, seatNumber, idShow, idViewer }) {
+export function checkoutPay({ seatNumber, showId, idViewer }) {
   return function (dispatch) {
     axios
       .post("https://back-group-proj.herokuapp.com/tickets/pay", {
-        price,
         seatNumber,
-        idShow,
+        showId,
         idViewer,
       })
       .then((response) => {
@@ -453,6 +364,18 @@ export function checkoutPay({ price, seatNumber, idShow, idViewer }) {
           payload: response.data,
         });
       });
+  };
+}
+
+export function getTicketPay({ seatNumber, id, idV, status }) {
+  return async function (dispatch) {
+    var resp = await axios.get(
+      `https://back-group-proj.herokuapp.com/tickets/finish/${id}/${idV}/${seatNumber}/${status}`
+    );
+    return dispatch({
+      type: GET_TICKET_PAY,
+      payload: resp.data,
+    });
   };
 }
 
@@ -510,6 +433,13 @@ export function postPasswordRecoveryTheater(email) {
   }
 }
 
+export function totalPrice(payload) {
+  return {
+    type: TOTAL_PRICE,
+    payload,
+  };
+}
+
 export const ORDER_PRICE = "ORDER_PRICE";
 export const FILTER_PROVINCE = "FILTER_PROVINCE";
 export const POST_SHOW = "POST_SHOW";
@@ -539,3 +469,7 @@ export const POST_NEWSLETTER_SHOW = "POST_NEWSLETTER_SHOW";
 export const GET_ALL_REVIEW = "GET_ALL_REVIEW";
 export const POST_PASSWORD_RECOVERY_VIEWER = "POST_PASSWORD_RECOVERY_VIEWER";
 export const POST_PASSWORD_RECOVERY_THEATER = "POST_PASSWORD_RECOVERY_THEATER";
+export const DELETE_THEATRER = "DELETE_THEATRER";
+export const GET_TICKET_PAY = "GET_TICKET_PAY";
+export const PUT_SHOW = "PUT_SHOW";
+export const TOTAL_PRICE = "TOTAL_PRICE";

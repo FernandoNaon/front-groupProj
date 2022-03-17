@@ -1,6 +1,5 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import NavBarTheater from "../NavBar/NavBarTheater";
-import SearchBar from "../SearchBar/SearchBar";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import {
@@ -8,14 +7,19 @@ import {
   allTheaters,
   allShows,
 } from "../../redux/actions/index.js";
-import ShowCard from "../ShowCard/ShowCard";
+import ShowCardTheater from "../ShowCard/ShowCardTheater.js";
 import style from "./HomeTheater.module.css";
+
 
 const HomeTheater = () => {
   const dispatch = useDispatch();
   const shows = useSelector((state) => state.shows);
   const theater = useSelector((state) => state.theatersDetail);
   let { id } = useParams();
+  
+  //let img = window.sessionStorage.getItem("img").valueOf();
+  //console.log("img", img);
+  
 
   useEffect(() => {
     dispatch(theaterDetail(id));
@@ -27,31 +31,32 @@ const HomeTheater = () => {
   console.log("theater", theater);
 
   let filterShows = shows?.filter((e) => e.theaterId === theater?.id);
-  console.log(filterShows);
+  console.log("filterShows", filterShows);
+
   return (
     <div className={style.homeContainer}>
-      <NavBarTheater id={id} />
-      <div className={style.searchContainer}>
-        <SearchBar />
-      </div>
+      <NavBarTheater id={id} name={theater?.name} />
+
       <div className={style.showsContainer}>
-        {filterShows.map((e) => (
-          <ShowCard
-            key={e.id}
-            id={e.id}
-            name={e.name}
-            genre={e.genre}
-            image={e.image}
-            summery={e.summery}
-            rated={e.rated}
-            date={e.date}
-            score={e.score}
-          />
-        ))}
+        {filterShows?.length ? (
+          filterShows?.map((e) => (
+            <ShowCardTheater
+              key={e.id}
+              id={e.id}
+              name={e.name}
+              genre={e.genre}
+              image={e.image}
+              rated={e.rated}
+              date={e.date}
+            />
+          ))
+        ) : (
+          <div className={style.noShows}>
+            {/*<img src='https://media.giphy.com/media/q15kbCtGFqwx8wYx1n/giphy.gif' alt='img'/>*/}
+            <p>NO HAY SHOWS PARA MOSTRAR</p>
+          </div>
+        )}
       </div>
-      {/* <div className={style.footerContainer}>
-        <Footer />
-      </div> */}
     </div>
   );
 };

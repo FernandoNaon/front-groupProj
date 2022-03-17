@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import NavBarAll from "../NavBar/NavBarAll";
-import SearchBar from "../SearchBar/SearchBar.js";
 import Shows from "../Shows/Shows";
 import Paginate from "../Paginate/Paginate";
 import { allShows } from "../../redux/actions";
@@ -14,10 +13,11 @@ export default function Home() {
   const allshows = useSelector((state) => state.shows);
   const [, setOrder] = useState("");
   const [actualPage, setActualPage] = useState(1);
-  const [qty] = useState(6);
-  const iLastShow = actualPage * qty; //6
+  const [qty] = useState(8);
+  const iLastShow = actualPage * qty; //8
   const iFirstShow = iLastShow - qty;
-  const actualShow = allshows.slice(iFirstShow, iLastShow);
+  const filterShow = allshows?.filter((e) => e.released === false);
+  const actualShow = filterShow?.slice(iFirstShow, iLastShow);
 
   console.log(actualShow);
   const paginate = (number) => {
@@ -32,26 +32,30 @@ export default function Home() {
       <div className={style.navContainer}>
         <NavBarAll setActualPage={setActualPage} setOrder={setOrder} />
       </div>
-      <div className={style.searchContainer}>
-        <SearchBar />
-      </div>
+      {filterShow?.length === 0 ? (
+        <p></p>
+      ) : (
+        <div className={style.carouselContainer}>
+          <CarouselContainer allshows={filterShow} />
+        </div>
+      )}
 
-      <CarouselContainer allshows={allshows} />
-      <div className={style.showsContainer}>
-        {actualShow.length ? (
-          <Shows actualShow={actualShow} />
+      <div>
+        {actualShow?.length ? (
+          <div className={style.showsContainer}>
+            <Shows actualShow={actualShow} />
+          </div>
         ) : (
-          <p>...Loading</p>
+          <img src='https://media.giphy.com/media/q15kbCtGFqwx8wYx1n/giphy.gif' alt='img'/>
         )}
       </div>
 
       <div className={style.paginate}>
-        <Paginate qty={qty} allshows={allshows.length} paginate={paginate} />
+        <Paginate qty={qty} allshows={filterShow?.length} paginate={paginate} />
       </div>
-      <CarrouselReview />
-      {/* <div className={style.footerContainer}>
-        <Footer />
-      </div> */}
+      <div className={style.carouselContainer}>
+        <CarrouselReview />
+      </div>
     </div>
   );
 }

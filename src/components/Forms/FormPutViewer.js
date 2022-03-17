@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import swal from "sweetalert";
 import { useHistory } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import {
@@ -9,6 +10,7 @@ import {
 import { useParams } from "react-router-dom";
 import NavBarPerfilViewer from "../NavBar/NavBarPerfilViewer.js";
 import style from "./FormPutViewer.module.css";
+import { useForm } from "react-hook-form";
 
 const FormPutViewer = () => {
   const dispatch = useDispatch();
@@ -16,136 +18,205 @@ const FormPutViewer = () => {
   const { id } = useParams();
   const detail = useSelector((state) => state.viewerDetail);
   const [edit, setEdit] = useState(false);
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
+  
+  
+ 
 
   useEffect(() => {
     dispatch(getViewerDetail(id));
   }, [dispatch, id]);
 
-  const [input, setInput] = useState({
-    name: "",
-    password: "",
-    image: "",
-  });
-
   const changeEdit = () => {
     edit === false ? setEdit(true) : setEdit(false);
-    setInput({
-      name: detail.name,
-      password: detail.password,
-      image: detail.image,
-    });
   };
 
-  const handleInputChange = (event) => {
-    event.preventDefault();
-    setInput({
-      ...input,
-      [event.target.name]: event.target.value,
+  function onSubmit(data) {
+    const cara = {
+      name: data.name,
+      password: data.password,
+      //image: data.image,
+    };
+    swal({
+      title: "Por favor confirma tus cambios",
+      icon: "warning",
+      buttons: ["Cancel", "Confirm"],
+    }).then((res) => {
+      if (res) {
+        dispatch(putViewer(id, cara));
+        swal({
+          text: "Usuario actualizado con éxito",
+          icon: "success",
+          buttons: false,
+        });
+        setEdit(false);
+        history.push(`/viewerHome/${id}`);
+      } else {
+        swal({
+          title: "Revisa bien tus cambios👀",
+          buttons: false,
+        });
+      }
     });
-  };
-
-  function handleSubmit(event) {
-    console.log(input);
-    event.preventDefault();
-    dispatch(putViewer(id, input));
-    alert("Usuario actualizado!");
-    setEdit(false);
   }
 
   function handleSubmitDelete(event) {
-    event.preventDefault();
-    dispatch(deleteViewer(id));
-    alert("Usuario Borrado con exito");
-    history.push("/");
+    swal({
+      title: "Estás seguro?",
+      text: "Una vez borrado, no lo podrás recuperar!",
+      icon: "warning",
+      buttons: ["Cancel", "Confirm"],
+      dangerMode: true,
+    }).then((willDelete) => {
+      if (willDelete) {
+        swal("Usuario borrado con éxito", {
+          icon: "success",
+          button: false,
+        });
+        dispatch(deleteViewer(id));
+        history.push("/");
+      } else {
+        swal({
+          title: "Tu perfil seguirá con vida ✔👀!",
+          button: false,
+        });
+      }
+    });
   }
-  console.log(detail);
-  console.log(input);
 
   return (
-    <div className={style.editContainer}>
+    <div className={style.formViewerContainer}>
       <div className={style.nav}>
-        <NavBarPerfilViewer />
-      </div>
-      <div className={style.title}>
-        <h1>Actualizar Espectador:</h1>
+        <NavBarPerfilViewer
+          
+          id={id}
+          name={detail?.name}
+        />
       </div>
       <div className={style.btnContainer}>
-        <button onClick={changeEdit} className={style.btn}>
-          Edit
+        <h2>Actualizar perfil</h2>
+        <button onClick={changeEdit} className="btn btn-dark">
+          Editar
         </button>
       </div>
-      <div>
-        <form onSubmit={handleSubmit} className={style.formContainer}>
-          <label>Nombre:</label>
-          {edit === false ? (
-            <input
-              readOnly="readOnly"
-              type="text"
-              name="name"
-              value={detail.name}
+
+      <div className={style.formViewerPut}>
+        <form onSubmit={handleSubmit(onSubmit)} className="row g-3">
+          {/*<div className="col-md-6">
+            <img
+              src={detail?.image}
+              alt="imagen de perfil"
+              className={style.imagen}
             />
-          ) : (
-            <input
-              type="text"
-              name="name"
-              value={input.name}
-              placeholder="Ingresa tu Nombre"
-              onChange={(e) => {
-                handleInputChange(e);
-              }}
-            />
-          )}
-          <label>Contraseña:</label>
-          {edit === false ? (
-            <input
-              readOnly="readonly"
-              type="password"
-              name="password"
-              value={detail.password}
-            />
-          ) : (
-            <input
-              type="text"
-              name="password"
-              placeholder="Ingresa una nueva contraseña"
-              value={input.password}
-              onChange={(e) => {
-                handleInputChange(e);
-              }}
-            />
-          )}
-          <label>Imagen de Perfil: </label>
-          {edit === false ? (
-            <input
-              readOnly="readonly"
-              type="text"
-              name="image"
-              value={detail.image}
-            />
-          ) : (
-            <input
-              type="url"
-              name="image"
-              value={input.image}
-              placeholder="Ingresa una imagen"
-              onChange={(e) => {
-                handleInputChange(e);
-              }}
-            />
-          )}
-          <button type="submit" className={style.btn}>
-            Actualizar
-          </button>
+          </div>*/}
+
+          {/*<div className="col-md-6">
+            <label className="form-label col-lg-12">Imagen de Perfil: </label>
+            {edit === false ? (
+              <input
+                readOnly="readonly"
+                type="text"
+                name="image"
+                value={detail.image}
+                className="form-control my-2"
+              />
+            ) : (
+              <input
+                type="url"
+                name="image"
+                placeholder="Ingresa una imagen"
+                className="form-control my-2"
+                {...register("image")}
+              />
+            )}
+            </div>*/}
+
+          <div className="col-md-6">
+            <label className="form-label col-lg-12">Nombre</label>
+            {edit === false ? (
+              <input
+                readOnly="readOnly"
+                type="text"
+                name="name"
+                value={detail.name}
+                className="form-control my-2"
+              />
+            ) : (
+              <input
+                type="text"
+                name="name"
+                className="form-control my-2"
+                {...register("name", {
+                  required: {
+                    value: true,
+                    message: "El campo es requerido",
+                  },
+                })}
+              />
+            )}
+            {
+              <span className="text-danger text-small d-block mb-2">
+                {errors.name && errors.name.message}
+              </span>
+            }
+          </div>
+          <div className="col-md-6">
+            <label className="form-label col-lg-12">Contraseña</label>
+            {edit === false ? (
+              <input
+                readOnly="readonly"
+                type="password"
+                name="password"
+                value={detail.password}
+                className="form-control my-2"
+              />
+            ) : (
+              <input
+                type="text"
+                name="password"
+                placeholder="Ingresa una nueva contraseña"
+                className="form-control my-2"
+                {...register("password", {
+                  required: {
+                    value: true,
+                    message: "El campo es requerido",
+                  },
+                  // pattern: {
+                  //     value: /(?=(.*[0-9]))(?=.*[a-z])(?=(.*[A-Z]))(?=(.*)).{8,}/,
+                  //     message: "Debe tener una letra minúscula, una letra mayúscula, un número, mínimo 8 dígitos."
+                  // }
+                })}
+              />
+            )}
+            {
+              <span className="text-danger text-small d-block mb-2">
+                {errors.password && errors.password.message}
+              </span>
+            }
+          </div>
+
+          <div>
+            {edit === false ? (
+              <button disabled type="submit" className="btn btn-dark">
+                Actualizar
+              </button>
+            ) : (
+              <button type="submit" className="btn btn-dark">
+                Actualizar
+              </button>
+            )}
+          </div>
         </form>
+        <div className={style.btnContainer}>
+          <button onClick={handleSubmitDelete} className="btn btn-danger">
+            Borrar Usuario
+          </button>
+        </div>
       </div>
-      <div className={style.btnContainer}>
-        <button onClick={handleSubmitDelete} className={style.btn}>
-          Borrar Usuario
-        </button>
-      </div>
-      {/* <div className={style.footerContainer}>
-        <Footer />
-      </div> */}
     </div>
   );
 };

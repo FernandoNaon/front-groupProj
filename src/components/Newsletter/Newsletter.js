@@ -4,16 +4,22 @@ import style from "./Newsletter.module.css";
 import { useSelector, useDispatch } from "react-redux";
 import { allTheaters, putViewer, createFavorites } from "../../redux/actions";
 import { useParams } from "react-router-dom";
-import Footer from "../Footer/Footer";
+import swal from "sweetalert";
+import { Form, Button } from "react-bootstrap";
 
 const Newsletter = () => {
   const theaters = useSelector((state) => state.theaters);
+  const detail = useSelector((state) => state.viewerDetail);
+
   const dispatch = useDispatch();
   const { id } = useParams();
   const [input, setInput] = useState({
     isSubscribed: false,
     nameTheater: "",
   });
+  
+  
+  
 
   useEffect(() => {
     dispatch(allTheaters());
@@ -27,7 +33,6 @@ const Newsletter = () => {
     });
   }
   const HandleCheck = (e) => {
-    e.preventDefault();
     if (e.target.checked) {
       setInput((prevInput) => ({
         ...prevInput,
@@ -41,7 +46,11 @@ const Newsletter = () => {
     dispatch(putViewer(id, { isSubscribed: input.isSubscribed }));
     dispatch(createFavorites(id, { nameTheater: input.nameTheater }));
     console.log(input);
-    alert("Gracias por suscribirte!");
+    swal({
+      icon: "success",
+      text: "Gracias por suscribirte!",
+      buttons: false,
+    });
     setInput({
       isSubscribed: false,
       nameTheater: "",
@@ -49,25 +58,30 @@ const Newsletter = () => {
   };
 
   return (
-    <div className={style.newsletter}>
+    <div>
       <div className={style.navContainer}>
-        <NavBarPerfilViewer />
+        <NavBarPerfilViewer name={detail?.name} />
       </div>
-
-      <div className={style.inputContainer}>
-        <form onSubmit={(e) => HandleSubmit(e)}>
-          <h2>
-            Suscribite a nuestro newsletter para recibir informacion sobre los
-            ultimos shows
-          </h2>
-          <span className={style.check}>
-            <label className={style.inp}>Hace click para suscribirte</label>
-            <input type="checkbox" onChange={(e) => HandleCheck(e)} />
-          </span>
+      <div className={style.newsletter}>
+        <h2 className={style.title}>
+          Suscribite a nuestro newsletter para recibir información sobre los
+          últimos shows
+        </h2>
+        <Form>
+          <div className={style.checkContainer}>
+            <Form.Group className="mb-2" controlId="formBasicCheckbox">
+              <Form.Check
+                variant="dark"
+                type="checkbox"
+                label="Hacé clíck para suscribirte"
+                onChange={(e) => HandleCheck(e)}
+              />
+            </Form.Group>
+          </div>
           <div className={style.select}>
-            <select onChange={(e) => HandleChange(e)}>
+            <Form.Select size="lg" onChange={(e) => HandleChange(e)}>
               <option defaultValue="" hidden>
-                Elegi tu teatro favorito
+                Elegí tu teatro favorito
               </option>
               {theaters?.map((el) => {
                 return (
@@ -76,25 +90,17 @@ const Newsletter = () => {
                   </option>
                 );
               })}
-            </select>
-            {/* {input.nameTheater?.map((el) => {
-              return (
-                <ul key={el}>
-                  <li>
-                    <p>
-                      <strong>{el}</strong>
-                    </p>
-                  </li>
-                </ul>
-              );
-            })} */}
+            </Form.Select>
           </div>
-          <button className={style.btn}>Enviar</button>
-        </form>
+          <Button
+            disabled={!input.isSubscribed || !input.nameTheater}
+            variant="dark"
+            onClick={(e) => HandleSubmit(e)}
+          >
+            Enviar
+          </Button>
+        </Form>
       </div>
-      {/* <div className={style.footerContainer}>
-        <Footer />
-      </div> */}
     </div>
   );
 };

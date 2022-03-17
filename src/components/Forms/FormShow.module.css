@@ -1,16 +1,30 @@
-.backContainer {
-  position: absolute;
-  top: 0;
-  right: 0;
-}
-.formContainer {
-  width: 100%;
-  color: white;
+.formShowContainer {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  height: auto;
 }
 
-.formData {
-  margin: 2rem;
+.formShowCreate {
+  display: flex;
+  flex-direction: column;
+  /* border: 0.3rem solid rgba(20,11,14,0.76);
+  border-radius: 2rem;
+  border-color: black; */
+  max-width: 40rem;
+  max-height: 80rem;
+  /* box-shadow: rgb(51, 49, 49) 10px 10px; */
+  padding: 30px 40px;
+  margin: 0 auto;
+  align-items: left;
+  margin-top: 0.5rem;
+}
+.seatComponent {
+  display: flex;
+  justify-content: center;
 }
 
-.layout {
+.seats {
+  display: flex;
+  justify-content: center;
 }

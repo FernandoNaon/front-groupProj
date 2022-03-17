@@ -4,11 +4,16 @@
 }
 
 .searchContainer {
-  width: 50rem;
+  width: 30vw;
+}
+
+.btnGroup {
+  display: flex;
+  gap: 1rem;
 }
 
 @media (max-width: 768px) {
   .searchContainer {
-    width: 100%;
+    width: 95vw;
   }
 }

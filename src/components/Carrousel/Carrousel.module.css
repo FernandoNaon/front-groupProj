@@ -1,2 +1,60 @@
 .carrouselContainer {
 }
+
+.image {
+  height: 20rem;
+  width: auto;
+}
+
+.carouselContent {
+  /* display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center; */
+
+  display: none;
+  transition: all 0.5s;
+}
+
+.carrouselContainer :hover > .carouselContent {
+  display: block;
+  transition: all 0.5s;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.carrouselContainer :hover > .image {
+  opacity: 0.3;
+}
+
+.title {
+  font-size: 2.5rem;
+  font-family: "Montserrat", sans-serif;
+  color: rgb(0, 0, 0);
+  width: fit-content;
+}
+
+.text {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+@media (max-width: 768px) {
+  .carrouselContent {
+    display: none;
+  }
+  .text {
+    display: none;
+  }
+  .carrouselContainer :hover > .image {
+    opacity: 1;
+  }
+  .image {
+    height: 14rem;
+    width: auto;
+    max-width: 100%;
+  }
+}
